@@ -1,7 +1,7 @@
-package store.domain.product.vo;
+package store.domain.vo;
 
-import store.domain.product.exception.ProductErrorCode;
-import store.domain.product.exception.ProductException;
+import store.domain.exception.ProductErrorCode;
+import store.domain.exception.ProductException;
 
 public class ProductQuantity {
 
@@ -17,12 +17,19 @@ public class ProductQuantity {
         return new ProductQuantity(Integer.parseInt(quantity));
     }
 
+    public static ProductQuantity none() {
+        return new ProductQuantity(ZERO);
+    }
+
     private ProductQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    public int quantity() {
+        return quantity;
+    }
 
-    public String quantity() {
+    public String showQuantity() {
         if (quantity == ZERO) {
             return ZERO_QUANTITY;
         }
@@ -32,7 +39,7 @@ public class ProductQuantity {
 
     private static void validateEmpty(String quantity) {
         if (quantity == null || quantity.isBlank()) {
-            throw new ProductException(ProductErrorCode.EMPTY_QUANTITY);
+            throw new ProductException(ProductErrorCode.WRONG_INPUT);
         }
     }
 

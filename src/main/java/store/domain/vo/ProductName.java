@@ -1,7 +1,8 @@
-package store.domain.product.vo;
+package store.domain.vo;
 
-import store.domain.product.exception.ProductErrorCode;
-import store.domain.product.exception.ProductException;
+import java.util.Objects;
+import store.domain.exception.ProductErrorCode;
+import store.domain.exception.ProductException;
 
 public class ProductName {
 
@@ -16,17 +17,34 @@ public class ProductName {
         return new ProductName(productName);
     }
 
-    public String name() {
-        return productName;
-    }
-
     private ProductName(String productName) {
         this.productName = productName;
     }
 
+    public String name() {
+        return productName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProductName that = (ProductName) o;
+        return productName.equals(that.productName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName);
+    }
+
     private static void validateEmpty(String quantity) {
         if (quantity == null || quantity.isBlank()) {
-            throw new ProductException(ProductErrorCode.NOT_FOUND_PRODUCT_NAME);
+            throw new ProductException(ProductErrorCode.WRONG_INPUT);
         }
     }
 

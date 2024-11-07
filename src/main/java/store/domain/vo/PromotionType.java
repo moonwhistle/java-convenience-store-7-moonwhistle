@@ -1,8 +1,8 @@
-package store.domain.product.vo;
+package store.domain.vo;
 
 import java.util.Objects;
-import store.domain.product.exception.ProductErrorCode;
-import store.domain.product.exception.ProductException;
+import store.domain.exception.ProductErrorCode;
+import store.domain.exception.ProductException;
 
 public class PromotionType {
 
@@ -16,6 +16,10 @@ public class PromotionType {
         return new PromotionType(checkPromotionType(promotionType));
     }
 
+    public static PromotionType none() {
+        return new PromotionType(INDICATED_NULL_PROMOTION_TYPE);
+    }
+
     private PromotionType(String promotionType) {
         this.promotionType = promotionType;
     }
@@ -26,7 +30,7 @@ public class PromotionType {
 
     private static void validateEmpty(String quantity) {
         if (quantity == null || quantity.isBlank()) {
-            throw new ProductException(ProductErrorCode.NOT_FOUND_PROMOTION_TYPE);
+            throw new ProductException(ProductErrorCode.WRONG_INPUT);
         }
     }
 

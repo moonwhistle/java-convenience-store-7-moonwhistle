@@ -1,4 +1,4 @@
-package store.domain.product.vo;
+package store.domain.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import store.domain.product.exception.ProductErrorCode;
+import store.domain.exception.ProductErrorCode;
 
 @SuppressWarnings("NonAsciiCharacters")
 class PromotionTypeTest {
@@ -39,12 +39,22 @@ class PromotionTypeTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    void 빈_문자열_값을_가진_프로모션_타입_객체를_생성한다(){
+        // given
+        PromotionType promotionType = PromotionType.none();
+        String expected = "";
+
+        // then
+        assertThat(promotionType.promotionType()).isEqualTo(expected);
+    }
+
     @ParameterizedTest
     @NullAndEmptySource
     void 빈_값이_들어오면_예외를_발생시킨다(String promotionType) {
         // when & then
         assertThatThrownBy(() -> PromotionType.from(promotionType))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(ProductErrorCode.NOT_FOUND_PROMOTION_TYPE.getMessage());
+                .hasMessageContaining(ProductErrorCode.WRONG_INPUT.getMessage());
     }
 }

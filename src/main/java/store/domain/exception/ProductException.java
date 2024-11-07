@@ -1,4 +1,4 @@
-package store.domain.product.exception;
+package store.domain.exception;
 
 public class ProductException extends IllegalArgumentException {
 

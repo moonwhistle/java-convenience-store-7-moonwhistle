@@ -1,4 +1,4 @@
-package store.domain.product.vo;
+package store.domain.vo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import store.domain.product.exception.ProductErrorCode;
+import store.domain.exception.ProductErrorCode;
 
 @SuppressWarnings("NonAsciiCharacters")
 class ProductNameTest {
@@ -25,6 +25,17 @@ class ProductNameTest {
         assertThat(actual).isEqualTo(name);
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"콜라", "사이다", "coke", "cider"})
+    void 객체_필드값이_같으면_같은_인스턴스라고_판단한다(String name){
+        // when
+        ProductName one = ProductName.from(name);
+        ProductName two = ProductName.from(name);
+
+        // then
+        assertThat(one).isEqualTo(two);
+    }
+
     @Nested
     class 예외_처리_테스트를_진행한다 {
 
@@ -34,7 +45,7 @@ class ProductNameTest {
             // when & then
             assertThatThrownBy(() -> ProductName.from(name))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(ProductErrorCode.NOT_FOUND_PRODUCT_NAME.getMessage());
+                    .hasMessageContaining(ProductErrorCode.WRONG_INPUT.getMessage());
         }
 
         @ParameterizedTest
