@@ -11,7 +11,7 @@ public class OutputView {
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
     public void welcomeStore() {
-        System.out.println("안녕하세요. W편의점입니다." + LINE_SEPARATOR + "현재 보유하고 있는 상품입니다." + LINE_SEPARATOR);
+        System.out.println(LINE_SEPARATOR + "안녕하세요. W편의점입니다." + LINE_SEPARATOR + "현재 보유하고 있는 상품입니다." + LINE_SEPARATOR);
     }
 
     public void showInventory(String name, int price, String quantity, String promotionType) {
