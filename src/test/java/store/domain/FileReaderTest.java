@@ -15,7 +15,6 @@ class FileReaderTest {
         FileReader fileReader = new FileReader(filePath);
         List<List<String>> expectedContents = List.of(
                 List.of("콜라", "1000", "10", "탄산2+1"),
-                List.of("콜라", "1000", "10", "null"),
                 List.of("빵", "1000", "10", "null"),
                 List.of("사이다", "1000", "8", "탄산2+1"),
                 List.of("껌", "1000", "7", "null"),

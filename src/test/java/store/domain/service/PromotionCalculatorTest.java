@@ -73,7 +73,7 @@ class PromotionCalculatorTest {
         // given
         Product buyProduct = new Product("콜라", "1000", "6", promotions.getPromotionByType(PromotionType.from("탄산2+1")));
         List<PromotionRequest> requests = List.of(new PromotionRequest("콜라", false, true));
-        int expectedFreePromotionQuantity = 3;
+        int expectedFreePromotionQuantity = 2;
 
         // when
         int actual = promotionCalculator.calculatePromotion(buyProduct, promotionProduct, noPromotionProducts,

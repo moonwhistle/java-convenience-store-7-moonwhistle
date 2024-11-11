@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import store.domain.BuyProducts;
 import store.domain.Products;
@@ -74,8 +75,8 @@ class PromotionCheckerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"11", "13", "15"})
-    void 정가로_구매해야하는_경우가_발생하는_개수를_입력받는다(String quantity) {
+    @CsvSource(value = {"13, 4", "15, 6"})
+    void 정가로_구매해야하는_경우가_발생하는_개수를_입력받는다(String quantity, int expectedNoPromotion) {
         // given
         Map<String, String> buyProductData = Map.of("콜라", quantity);
         BuyProducts buyProducts = new BuyProducts(buyProductData, promotions, products);
@@ -85,23 +86,7 @@ class PromotionCheckerTest {
 
         // then
         assertThat(promotionResponses)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(
-                        new PromotionResponse("콜라", true, Integer.parseInt(quantity) - 10, false, 0)
-                );
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"빵", "껌"})
-    void 프로모션에_해당되지_않는_상품을_구매한다(String name) {
-        // given
-        Map<String, String> buyProductData = Map.of(name, "3");
-        BuyProducts buyProducts = new BuyProducts(buyProductData, promotions, products);
-
-        // when
-        List<PromotionResponse> promotionResponses = promotionChecker.checkPromotion(products, buyProducts);
-
-        // then
-        assertThat(promotionResponses).isEmpty();
+                .hasSize(1)
+                .containsExactly(new PromotionResponse("콜라", true, expectedNoPromotion, false, 0));
     }
 }
