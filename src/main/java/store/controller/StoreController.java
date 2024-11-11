@@ -123,6 +123,7 @@ public class StoreController {
     }
 
     private BuyProducts buyProducts(Promotions promotions, Products products) {
+        outputView.getCustomerProducts();
         while (true) {
             try {
                 BuyProductParser parser = new BuyProductParser(inputView.buyProducts());
