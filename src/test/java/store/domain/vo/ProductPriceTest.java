@@ -20,7 +20,7 @@ class ProductPriceTest {
         ProductPrice productPrice = ProductPrice.from(price);
 
         // when
-        int actual = productPrice.price();
+        int actual = productPrice.getPrice();
 
         // then
         assertThat(actual).isEqualTo(Integer.parseInt(price));
@@ -33,7 +33,7 @@ class ProductPriceTest {
         int expected = 0;
 
         // then
-        assertThat(productPrice.price()).isEqualTo(expected);
+        assertThat(productPrice.getPrice()).isEqualTo(expected);
     }
 
     @Nested

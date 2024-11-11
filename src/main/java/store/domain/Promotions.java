@@ -19,7 +19,7 @@ public class Promotions {
 
     public Promotion getPromotionByType(PromotionType type) {
         return promotions.stream()
-                .filter(promotion -> promotion.promotionType().equals(type.promotionType()))
+                .filter(promotion -> promotion.getPromotionType().equals(type.getPromotionType()))
                 .findFirst()
                 .orElse(Promotion.noPromotion());
     }
@@ -32,13 +32,8 @@ public class Promotions {
 
     private void makePromotion(List<List<String>> contents, LocalDateTime currentTime, List<Promotion> promotions) {
         for (List<String> content : contents) {
-            Promotion promotion = new Promotion(
-                    PromotionType.from(content.getFirst()),
-                    currentTime,
-                    content.get(BUY_INDEX),
-                    content.get(FREE_GET_INDEX),
-                    content.get(START_DATE_INDEX),
-                    content.getLast()
+            Promotion promotion = Promotion.from(
+                    PromotionType.from(content.getFirst()), currentTime, content.get(BUY_INDEX), content.get(FREE_GET_INDEX), content.get(START_DATE_INDEX), content.getLast()
             );
             promotions.add(promotion);
         }

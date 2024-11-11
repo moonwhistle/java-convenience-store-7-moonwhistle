@@ -24,7 +24,7 @@ public class ProductPrice {
         this.price = price;
     }
 
-    public int price() {
+    public int getPrice() {
         return price;
     }
 

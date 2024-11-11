@@ -34,7 +34,7 @@ class PromotionsTest {
         Promotion mdPromotion = promotions.getPromotionByType(PromotionType.from("MD추천상품"));
 
         // then
-        assertThat(mdPromotion.promotionType()).isEqualTo("MD추천상품");
+        assertThat(mdPromotion.getPromotionType()).isEqualTo("MD추천상품");
         assertThat(mdPromotion.isPromotion()).isTrue();
     }
 
@@ -47,7 +47,7 @@ class PromotionsTest {
         Promotion noPromotion = promotions.getPromotionByType(PromotionType.from("없는프로모션"));
 
         // then
-        assertThat(noPromotion.promotionType()).isEqualTo("");
+        assertThat(noPromotion.getPromotionType()).isEqualTo("");
         assertThat(noPromotion.isPromotion()).isFalse();
     }
 }

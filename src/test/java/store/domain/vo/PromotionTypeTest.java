@@ -19,7 +19,7 @@ class PromotionTypeTest {
         PromotionType promotionType = PromotionType.from(type);
 
         // when
-        String actual = promotionType.promotionType();
+        String actual = promotionType.getPromotionType();
 
         // then
         assertThat(actual).isEqualTo(type);
@@ -33,20 +33,20 @@ class PromotionTypeTest {
         String expected = "";
 
         // when
-        String actual = promotionType.promotionType();
+        String actual = promotionType.getPromotionType();
 
         //then
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void 빈_문자열_값을_가진_프로모션_타입_객체를_생성한다(){
+    void 빈_문자열_값을_가진_프로모션_타입_객체를_생성한다() {
         // given
         PromotionType promotionType = PromotionType.none();
         String expected = "";
 
         // then
-        assertThat(promotionType.promotionType()).isEqualTo(expected);
+        assertThat(promotionType.getPromotionType()).isEqualTo(expected);
     }
 
     @ParameterizedTest

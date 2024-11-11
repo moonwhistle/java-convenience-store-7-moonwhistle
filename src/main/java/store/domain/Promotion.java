@@ -13,34 +13,45 @@ public class Promotion {
     private final ProductQuantity getQuantity;
     private final boolean isPromotion;
 
-    public Promotion(PromotionType promotionType, LocalDateTime currentDate, String buyQuantity, String getQuantity,
+    public static Promotion from(PromotionType promotionType, LocalDateTime currentDate, String buyQuantity, String getQuantity,
                      String startDate, String endDate) {
-        this.promotionType = promotionType;
-        this.buyQuantity = ProductQuantity.from(buyQuantity);
-        this.getQuantity = ProductQuantity.from(getQuantity);
-        this.isPromotion = isPromotion(currentDate, startDate, endDate);
+
+        return new Promotion(promotionType, ProductQuantity.from(buyQuantity), ProductQuantity.from(getQuantity), isPromotion(currentDate, startDate, endDate));
     }
 
-    private Promotion(PromotionType promotionType, ProductQuantity buyQuantity, ProductQuantity getQuantity, boolean isPromotion) {
+    public static Promotion noPromotion() {
+        return new Promotion(PromotionType.none(), ProductQuantity.none(), ProductQuantity.none(), false);
+    }
+
+    private Promotion(PromotionType promotionType, ProductQuantity buyQuantity, ProductQuantity getQuantity,
+                      boolean isPromotion) {
         this.promotionType = promotionType;
         this.buyQuantity = buyQuantity;
         this.getQuantity = getQuantity;
         this.isPromotion = isPromotion;
     }
 
-    public static Promotion noPromotion() {
-        return new Promotion (PromotionType.none(), ProductQuantity.none(), ProductQuantity.none(), false);
-    }
-
-    public String promotionType() {
-        return promotionType.promotionType();
+    public String getPromotionType() {
+        return promotionType.getPromotionType();
     }
 
     public boolean isPromotion() {
         return isPromotion;
     }
 
-    private boolean isPromotion(LocalDateTime currentDate, String startDate, String endDate) {
+    public int getBuyQuantity() {
+        return buyQuantity.getQuantity();
+    }
+
+    public int getGettableQuantity() {
+        return getQuantity.getQuantity();
+    }
+
+    public int getOnePromotionCycle() {
+        return buyQuantity.getQuantity() + getQuantity.getQuantity();
+    }
+
+    private static boolean isPromotion(LocalDateTime currentDate, String startDate, String endDate) {
         LocalDateTime start = LocalDate.parse(startDate).atStartOfDay();
         LocalDateTime end = LocalDate.parse(endDate).atTime(LocalTime.MAX);
 

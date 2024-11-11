@@ -19,31 +19,52 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public Product(String name, String quantity) {
-        this.name = ProductName.from(name);
-        this.price = ProductPrice.none();
-        this.quantity = ProductQuantity.from(quantity);
-        this.promotion = Promotion.noPromotion();
+    public String getName() {
+        return name.getName();
     }
 
-    public String name() {
-        return name.name();
+    public int getPrice() {
+        return price.getPrice();
     }
 
-    public int price() {
-        return price.price();
-    }
-
-    public int quantity() {
-        return quantity.quantity();
+    public int getQuantity() {
+        return quantity.getQuantity();
     }
 
     public String showQuantity() {
         return quantity.showQuantity();
     }
 
-    public String promotionType() {
-        return promotion.promotionType();
+    public String getPromotionType() {
+        return promotion.getPromotionType();
+    }
+
+    public boolean isPromotion() {
+        return promotion.isPromotion();
+    }
+
+    public int getPromotionBuyQuantity() {
+        return promotion.getBuyQuantity();
+    }
+
+    public int getPromotionGettableQuantity() {
+        return promotion.getGettableQuantity();
+    }
+
+    public int getPromotionQuantity() {
+        return (quantity.getQuantity() / getOnePromotionCycle()) * promotion.getGettableQuantity();
+    }
+
+    public int getOnePromotionCycle() {
+        return promotion.getOnePromotionCycle();
+    }
+
+    public void buyProduct(int buyQuantity) {
+        quantity.minusQuantity(buyQuantity);
+    }
+
+    public void freeProduct(int addQuantity) {
+        quantity.addQuantity(addQuantity);
     }
 
     @Override

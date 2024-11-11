@@ -8,8 +8,9 @@ public class ProductQuantity {
     private static final int ZERO = 0;
     private static final String ZERO_QUANTITY = "재고 없음";
     private static final String NUMBER_DELIMITER = "^[0-9]+$";
+    private static final String INDICATE_SHOW_QUANTITY = "개";
 
-    private final int quantity;
+    private int quantity;
 
     public static ProductQuantity from(String quantity) {
         validateEmpty(quantity);
@@ -25,8 +26,16 @@ public class ProductQuantity {
         this.quantity = quantity;
     }
 
-    public int quantity() {
+    public int getQuantity() {
         return quantity;
+    }
+
+    public void minusQuantity(int buyQuantity) {
+       quantity -= buyQuantity;
+    }
+
+    public void addQuantity(int freeQuantity) {
+        quantity += freeQuantity;
     }
 
     public String showQuantity() {
@@ -34,7 +43,7 @@ public class ProductQuantity {
             return ZERO_QUANTITY;
         }
 
-        return String.valueOf(quantity);
+        return quantity + INDICATE_SHOW_QUANTITY;
     }
 
     private static void validateEmpty(String quantity) {

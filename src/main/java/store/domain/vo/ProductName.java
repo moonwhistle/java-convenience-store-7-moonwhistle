@@ -10,7 +10,6 @@ public class ProductName {
 
     private final String productName;
 
-
     public static ProductName from(String productName) {
         validateEmpty(productName);
         validateType(productName);
@@ -21,7 +20,7 @@ public class ProductName {
         this.productName = productName;
     }
 
-    public String name() {
+    public String getName() {
         return productName;
     }
 

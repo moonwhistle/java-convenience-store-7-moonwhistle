@@ -19,7 +19,7 @@ class ProductNameTest {
         ProductName productName = ProductName.from(name);
 
         // when
-        String actual = productName.name();
+        String actual = productName.getName();
 
         // then
         assertThat(actual).isEqualTo(name);

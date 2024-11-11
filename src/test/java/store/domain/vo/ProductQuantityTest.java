@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import store.domain.exception.ProductErrorCode;
@@ -21,10 +22,10 @@ class ProductQuantityTest {
 
         // when
         String actualShowQuantity = productQuantity.showQuantity();
-        int actualQuantity = productQuantity.quantity();
+        int actualQuantity = productQuantity.getQuantity();
 
         // then
-        assertThat(actualShowQuantity).isEqualTo(quantity);
+        assertThat(actualShowQuantity).isEqualTo(quantity + "개");
         assertThat(actualQuantity).isEqualTo(Integer.parseInt(quantity));
     }
 
@@ -49,7 +50,33 @@ class ProductQuantityTest {
         int expected = 0;
 
         // then
-        assertThat(productQuantity.quantity()).isEqualTo(expected);
+        assertThat(productQuantity.getQuantity()).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1,3,4", "2,4,6", "10,11,21"})
+    void 재고를_추가한다(String quantity, int addQuantity, int result) {
+        // given
+        ProductQuantity productQuantity = ProductQuantity.from(quantity);
+
+        // when
+        productQuantity.addQuantity(addQuantity);
+
+        // then
+        assertThat(productQuantity.getQuantity()).isEqualTo(result);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"4,3,1", "6,4,2", "21,11,10"})
+    void 재고를_감소한다(String quantity, int minusQuantity, int result) {
+        // given
+        ProductQuantity productQuantity = ProductQuantity.from(quantity);
+
+        // when
+        productQuantity.minusQuantity(minusQuantity);
+
+        // then
+        assertThat(productQuantity.getQuantity()).isEqualTo(result);
     }
 
     @Nested

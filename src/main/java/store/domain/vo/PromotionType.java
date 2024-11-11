@@ -24,7 +24,7 @@ public class PromotionType {
         this.promotionType = promotionType;
     }
 
-    public String promotionType() {
+    public String getPromotionType() {
         return promotionType;
     }
 
